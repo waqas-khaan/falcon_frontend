@@ -1,0 +1,61 @@
+/* Edit Student page styles */
+.v-card {
+  border-radius: 8px;
+}
+
+/* Responsive Edit Student Page */
+@media (max-width: 960px) {
+  .v-container.fluid {
+    padding: 12px !important;
+  }
+
+  .v-card {
+    margin: 0 !important;
+  }
+
+  .v-card__title {
+    font-size: 1.25rem !important;
+    padding: 16px !important;
+  }
+
+  .v-card__text {
+    padding: 16px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .v-container.fluid {
+    padding: 8px !important;
+  }
+
+  .v-card__title {
+    font-size: 1.125rem !important;
+    padding: 12px !important;
+  }
+
+  .v-card__text {
+    padding: 12px !important;
+  }
+
+  .v-text-field,
+  .v-select,
+  .v-textarea {
+    margin-bottom: 8px !important;
+  }
+
+  .d-flex.justify-space-between {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .d-flex.justify-space-between .v-btn {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+}
+
+
+
+/* Cursor pointer for interactive elements */
+button, .v-btn, .v-icon, a, .v-list-item, .v-tab, [role="button"], [tabindex] { cursor: pointer; }
+button:hover, .v-btn:hover, .v-icon:hover, a:hover, .v-list-item:hover, .v-tab:hover, [role="button"]:hover, [tabindex]:hover { cursor: pointer; }

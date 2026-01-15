@@ -1,0 +1,502 @@
+/* Container Styling */
+.user-management-container {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: #f5f5f5 !important;
+}
+
+.user-management-container.v-container {
+  padding: 0 !important;
+}
+
+.user-management-container .v-container__wrap {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.v-main .user-management-container {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.user-management-container .v-row {
+  margin: 0 !important;
+  height: 100% !important;
+}
+
+.user-management-container .v-col {
+  padding: 0 !important;
+  height: 100% !important;
+}
+
+/* ============================================
+   Header Toolbar
+   ============================================ */
+.user-management-header-toolbar {
+  background: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  padding: 0 24px !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  min-height: 64px !important;
+}
+
+.user-management-header-toolbar .v-toolbar__title {
+  font-size: 1.5rem !important;
+  color: #333333 !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.user-management-header-toolbar .v-btn--icon {
+  transition: background-color 0.2s ease !important;
+}
+
+.user-management-header-toolbar .v-btn--icon:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ============================================
+   Table Card
+   ============================================ */
+.user-management-container .table-card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+  border-radius: 0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  margin: 0 !important;
+}
+
+.user-management-container .v-card {
+  margin: 0 !important;
+}
+
+/* ============================================
+   Card Header with Search
+   ============================================ */
+.user-management-container .v-card__title {
+  padding: 16px 24px !important;
+  font-weight: 600 !important;
+  min-height: 56px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.user-management-container .v-card__title .text-h6 {
+  font-size: 1.125rem !important;
+  color: #333333 !important;
+  font-weight: 600 !important;
+}
+
+/* User Count Chip */
+.user-count-chip {
+  font-weight: 500 !important;
+  border-width: 1px !important;
+  background: #ffffff !important;
+}
+
+.user-count-chip:hover {
+  background: #f5f5f5 !important;
+}
+
+/* ============================================
+   Search Field
+   ============================================ */
+.user-management-container .search-field {
+  margin-top: 0 !important;
+}
+
+.user-management-container .search-field .v-input__control {
+  min-height: 40px !important;
+}
+
+.user-management-container .search-field .v-text-field--outlined > .v-input__control > .v-input__slot {
+  background-color: #ffffff !important;
+  border-radius: 4px !important;
+  transition: border-color 0.2s ease !important;
+}
+
+.user-management-container .search-field .v-text-field--outlined > .v-input__control > .v-input__slot fieldset {
+  border-color: #e0e0e0 !important;
+  border-width: 1px !important;
+}
+
+.user-management-container .search-field .v-text-field--outlined.v-input--is-focused > .v-input__control > .v-input__slot fieldset {
+  border-color: #1976d2 !important;
+  border-width: 1px !important;
+}
+
+/* ============================================
+   Table Styling
+   ============================================ */
+.user-management-table {
+  font-size: 0.875rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+.user-management-table .v-data-table__wrapper {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+.user-management-table .v-data-table {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.user-management-table .v-data-table__wrapper table {
+  margin: 0 !important;
+}
+
+.user-management-table .v-data-table__wrapper {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Table Headers */
+.user-management-table thead th {
+  background: #fafafa !important;
+  color: #424242 !important;
+  font-weight: 600 !important;
+  font-size: 0.8125rem !important;
+  text-align: left !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  padding: 16px 24px !important;
+  letter-spacing: 0.3px !important;
+  text-transform: uppercase !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 5 !important;
+}
+
+/* Table Rows */
+.user-management-table tbody tr {
+  transition: background-color 0.15s ease !important;
+  border-bottom: 1px solid #f5f5f5 !important;
+}
+
+.user-management-table tbody tr:hover {
+  background-color: #fafafa !important;
+}
+
+.user-management-table tbody tr:nth-child(even) {
+  background-color: #ffffff !important;
+}
+
+.user-management-table tbody tr:nth-child(even):hover {
+  background-color: #fafafa !important;
+}
+
+/* Table Cells */
+.user-management-table tbody td {
+  border-bottom: 1px solid #f5f5f5 !important;
+  color: #424242 !important;
+  font-weight: 400 !important;
+  padding: 16px 24px !important;
+  font-size: 0.875rem !important;
+  vertical-align: middle !important;
+}
+
+.user-management-table tbody td:first-child {
+  font-weight: 500 !important;
+  color: #757575 !important;
+}
+
+/* ============================================
+   User Email and Name Styling
+   ============================================ */
+.user-email {
+  color: #1976d2 !important;
+  font-weight: 400 !important;
+}
+
+.user-name {
+  color: #424242 !important;
+  font-weight: 500 !important;
+}
+
+/* ============================================
+   Role Chip Styling
+   ============================================ */
+.user-management-table .v-chip,
+.user-management-table .role-chip {
+  font-weight: 500 !important;
+  padding: 4px 12px !important;
+  height: auto !important;
+  border-radius: 4px !important;
+  font-size: 0.75rem !important;
+  text-transform: capitalize !important;
+}
+
+.user-management-table .v-chip.v-chip--small,
+.user-management-table .role-chip.v-chip--small {
+  font-size: 0.6875rem !important;
+  padding: 3px 10px !important;
+}
+
+/* ============================================
+   Action Buttons
+   ============================================ */
+.user-management-table .action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-management-table .action-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 6px !important;
+  border-radius: 4px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease !important;
+  width: 32px;
+  height: 32px;
+}
+
+.user-management-table .action-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.user-management-table .action-btn:active {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.user-management-table .action-btn .v-icon {
+  font-size: 18px !important;
+  color: #424242 !important;
+}
+
+.user-management-table .action-btn:hover .v-icon {
+  color: #1976d2 !important;
+}
+
+.user-management-table .action-btn:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+}
+
+.user-management-table .action-btn:disabled:hover {
+  background-color: transparent !important;
+}
+
+/* ============================================
+   Footer/Pagination
+   ============================================ */
+.user-management-table .v-data-footer {
+  background: #ffffff !important;
+  border-top: 1px solid #e0e0e0 !important;
+  padding: 12px 24px !important;
+  font-size: 0.813rem !important;
+  font-weight: 400 !important;
+  flex-shrink: 0 !important;
+}
+
+.user-management-table .v-data-footer .v-pagination__item--active {
+  background: #1976d2 !important;
+  color: #ffffff !important;
+}
+
+/* ============================================
+   Dialogs
+   ============================================ */
+.user-management-container .v-dialog .v-card {
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.user-management-container .v-dialog .dialog-header-edit {
+  background: #1976d2 !important;
+  color: #ffffff !important;
+  padding: 20px 24px !important;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+}
+
+.user-management-container .v-dialog .dialog-header-add {
+  background: #4caf50 !important;
+  color: #ffffff !important;
+  padding: 20px 24px !important;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+}
+
+.user-management-container .v-dialog .dialog-header-delete {
+  background: #f44336 !important;
+  color: #ffffff !important;
+  padding: 20px 24px !important;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+}
+
+.user-management-container .v-dialog .v-card__text {
+  padding: 24px !important;
+  background: #ffffff !important;
+}
+
+/* User Info Section in Dialogs */
+.user-info-section {
+  background: #fafafa !important;
+  padding: 16px !important;
+  border-radius: 4px !important;
+  border-left: 3px solid #1976d2 !important;
+  margin-bottom: 20px !important;
+}
+
+.user-info-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  color: #424242 !important;
+}
+
+.user-info-item strong {
+  color: #212121 !important;
+  min-width: 100px;
+  font-weight: 600 !important;
+}
+
+.user-info-section-delete {
+  border-left-color: #f44336 !important;
+}
+
+.user-management-container .v-dialog .v-card__actions {
+  background: #fafafa !important;
+  padding: 16px 24px !important;
+  border-top: 1px solid #e0e0e0 !important;
+}
+
+/* ============================================
+   Loading & Empty States
+   ============================================ */
+.user-management-container .v-data-table__empty-wrapper {
+  padding: 60px 24px !important;
+  background: #ffffff !important;
+}
+
+.user-management-container .v-data-table__empty-wrapper .v-icon {
+  color: #bdbdbd !important;
+  margin-bottom: 16px !important;
+}
+
+/* ============================================
+   Custom Scrollbar
+   ============================================ */
+.user-management-table .v-data-table__wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.user-management-table .v-data-table__wrapper::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+.user-management-table .v-data-table__wrapper::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 4px;
+}
+
+.user-management-table .v-data-table__wrapper::-webkit-scrollbar-thumb:hover {
+  background: #9e9e9e;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 960px) {
+  .user-management-header-toolbar {
+    padding: 0 16px !important;
+  }
+
+  .user-management-header-toolbar .v-toolbar__title {
+    font-size: 1.25rem !important;
+  }
+
+  .user-management-container .search-field {
+    max-width: 200px !important;
+  }
+
+  .user-management-table tbody td,
+  .user-management-table thead th {
+    padding: 12px 16px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .user-management-header-toolbar {
+    padding: 0 12px !important;
+    min-height: 56px !important;
+  }
+
+  .user-management-header-toolbar .v-toolbar__title {
+    font-size: 1.125rem !important;
+  }
+
+  .user-management-container .search-field {
+    max-width: 150px !important;
+  }
+
+  .user-management-table {
+    font-size: 0.75rem !important;
+  }
+
+  .user-management-table tbody td {
+    padding: 10px 12px !important;
+  }
+
+  .user-management-table thead th {
+    padding: 10px 12px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .user-management-container .v-card__title {
+    padding: 12px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .user-count-chip {
+    margin-top: 8px !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* ============================================
+   Additional Polish
+   ============================================ */
+.user-management-container .v-card__text {
+  padding: 0 !important;
+}
+
+.user-management-table thead {
+  flex-shrink: 0 !important;
+}
+
+.user-management-table tbody {
+  flex: 1 !important;
+  min-height: 0 !important;
+}
+
+/* Focus states for accessibility */
+.user-management-container .v-btn:focus,
+.user-management-container .v-text-field:focus-within {
+  outline: 2px solid rgba(25, 118, 210, 0.3) !important;
+  outline-offset: 2px !important;
+}

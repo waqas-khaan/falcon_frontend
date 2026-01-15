@@ -1,0 +1,142 @@
+/* Result Detail page styles */
+.result-detail-container {
+  background-color: #f5f7fa;
+}
+
+.info-card-header {
+  background-color: #497cb1;
+}
+
+.info-list .info-item {
+  padding: 10px 14px;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #497cb1;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-size: 14px;
+}
+
+/* Compact Student Detail Layout */
+.profile-header-card {
+  border-radius: 8px;
+}
+
+.info-section-compact {
+  padding: 16px 0;
+}
+
+.info-section-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.info-section-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-color: #497cb1;
+}
+
+.section-title-compact {
+  font-size: 14px;
+  font-weight: 600;
+  color: #497cb1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #497cb1;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.info-grid-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-item-compact {
+  padding: 10px 14px;
+  background: #fafafa;
+  border-radius: 6px;
+  border: 1px solid #1976d2;
+  border-left: 3px solid #1976d2;
+  transition: all 0.2s ease;
+}
+
+.info-item-compact:hover {
+  background: #f0f4f8;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.15);
+  transform: translateX(2px);
+  border-color: #1976d2;
+}
+
+.info-label-compact {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.info-value-compact {
+  font-size: 14px;
+  color: #212121;
+  font-weight: 500;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+
+
+/* Profile Avatar Styles */
+.profile-avatar {
+  border: 3px solid #497cb1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.clickable-avatar {
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.clickable-avatar:hover {
+  transform: scale(1.05);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 50%;
+}
+
+.clickable-avatar:hover .image-overlay {
+  opacity: 1;
+}
+
+/* Cursor pointer for interactive elements */
+button, .v-btn, .v-icon, a, .v-list-item, .v-tab, [role="button"], [tabindex] { cursor: pointer; }
+button:hover, .v-btn:hover, .v-icon:hover, a:hover, .v-list-item:hover, .v-tab:hover, [role="button"]:hover, [tabindex]:hover { cursor: pointer; }

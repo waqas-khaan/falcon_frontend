@@ -1,0 +1,353 @@
+/* Sidebar Styling */
+.demo-sidebar {
+  /* Match navbar background color for consistent look */
+  background-color: #f5f5f5 !important;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.demo-sidebar.v-navigation-drawer {
+  position: fixed !important;
+  top: 64px !important;
+  height: calc(100vh - 64px) !important;
+  width: 300px !important;
+  min-width: 300px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.demo-sidebar .v-navigation-drawer__content {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* Sidebar content wrapper */
+.sidebar-content-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  position: relative !important;
+}
+
+.sidenavmain .v-navigation-drawer__border {
+  background-color: #e0e0e0 !important;
+}
+
+.demo-sidebar .v-list-item__title {
+  color: #2c3e50 !important;
+  font-weight: 500 !important;
+  font-size: 0.95rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.demo-sidebar .v-icon {
+  color: #455a64 !important;
+  transition: all 0.3s ease !important;
+  font-size: 22px !important;
+}
+
+/* Icon Alignment - Ensure all icons are properly aligned */
+.demo-sidebar .v-list-item__icon {
+  min-width: 40px !important;
+  margin-right: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Group items icon alignment */
+.demo-sidebar .v-list-group__header .v-list-item__icon {
+  min-width: 40px !important;
+  margin-right: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Nested items icon alignment */
+.demo-sidebar .v-list-group__items .v-list-item__icon {
+  min-width: 40px !important;
+  margin-right: 12px !important;
+  margin-left: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Ensure all icons are vertically centered */
+.demo-sidebar .v-list-item {
+  align-items: center !important;
+  min-height: 48px !important;
+}
+
+.demo-sidebar .v-list-group__header {
+  align-items: center !important;
+  min-height: 48px !important;
+}
+
+/* Ensure list item content is properly aligned */
+.demo-sidebar .v-list-item__content {
+  display: flex !important;
+  align-items: center !important;
+  flex: 1 1 auto !important;
+}
+
+/* Consistent padding for all menu items */
+.demo-sidebar .v-list-item,
+.demo-sidebar .v-list-group__header {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+/* Sidebar Menu Items */
+.sidebar-menu-item {
+  margin: 4px 8px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  min-height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.sidebar-menu-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(180deg, #1976d2 0%, #1565c0 100%);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+  border-radius: 0 4px 4px 0;
+}
+
+.sidebar-menu-item:hover {
+  background: linear-gradient(90deg, rgba(69, 90, 100, 0.1) 0%, rgba(69, 90, 100, 0.05) 100%) !important;
+  cursor: pointer;
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(69, 90, 100, 0.15) !important;
+}
+
+/* Ensure v-list-group items don't have red hover */
+.demo-sidebar .v-list-group:hover {
+  background: linear-gradient(90deg, rgba(69, 90, 100, 0.1) 0%, rgba(69, 90, 100, 0.05) 100%) !important;
+}
+
+.demo-sidebar .v-list-group:hover .v-list-item__title {
+  color: #37474f !important;
+}
+
+.demo-sidebar .v-list-group:hover .v-icon {
+  color: #37474f !important;
+}
+
+/* Ensure nested list items don't have red hover */
+.demo-sidebar .v-list-group .v-list-item:hover {
+  background: linear-gradient(90deg, rgba(69, 90, 100, 0.1) 0%, rgba(69, 90, 100, 0.05) 100%) !important;
+}
+
+.demo-sidebar .v-list-group .v-list-item:hover .v-list-item__title {
+  color: #37474f !important;
+}
+
+.demo-sidebar .v-list-group .v-list-item:hover .v-icon {
+  color: #37474f !important;
+}
+
+.sidebar-menu-item:hover::before {
+  transform: scaleY(1);
+}
+
+.sidebar-menu-item:hover .v-icon {
+  color: #37474f !important;
+  transform: scale(1.1);
+}
+
+.sidebar-menu-item:hover .v-list-item__title {
+  color: #37474f !important;
+  font-weight: 600 !important;
+}
+
+.sidebar-menu-item {
+  cursor: pointer;
+}
+
+.demo-sidebar .v-icon,
+.demo-sidebar .v-list-item {
+  cursor: pointer;
+}
+
+button,
+.v-btn,
+.v-icon {
+  cursor: pointer;
+}
+
+/* Active Sidebar Item */
+.sidebar-menu-item.v-list-item--active {
+  background: linear-gradient(90deg, rgba(25, 118, 210, 0.15) 0%, rgba(25, 118, 210, 0.08) 100%) !important;
+  border-left: 4px solid #1976d2 !important;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.2) !important;
+  transform: translateX(2px);
+}
+
+.sidebar-menu-item.v-list-item--active::before {
+  transform: scaleY(1);
+}
+
+.sidebar-menu-item.v-list-item--active .v-list-item__title {
+  color: #1976d2 !important;
+  font-weight: 700 !important;
+}
+
+.sidebar-menu-item.v-list-item--active .v-icon {
+  color: #1976d2 !important;
+  transform: scale(1.15);
+}
+
+/* Sign Out Item Special Styling */
+.sidebar-menu-item:last-child {
+  margin-top: 16px !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 8px !important;
+}
+
+.sidebar-menu-item:last-child:hover {
+  background: linear-gradient(90deg, rgba(244, 67, 54, 0.1) 0%, rgba(244, 67, 54, 0.05) 100%) !important;
+}
+
+.sidebar-menu-item:last-child:hover .v-icon {
+  color: #f44336 !important;
+}
+
+.sidebar-menu-item:last-child:hover .v-list-item__title {
+  color: #f44336 !important;
+}
+
+.sidebar-menu-item:last-child .v-icon {
+  color: #455a64 !important;
+}
+
+/* Development Company Logo
+.sidebar-logo-container {
+  margin-top: auto !important;
+  padding-top: 100px !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  position: relative !important;
+  z-index: 10 !important;
+} */
+
+.sidebar-logo {
+  padding-top: 40px;
+  max-width: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  max-height: 117px !important;
+  min-height: 60px !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  display: block !important;
+  margin: 10px auto 0 auto !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) !important;
+}
+
+/* Ensure logo container is always visible
+.sidebar-logo-container img {
+  visibility: visible !important;
+  opacity: 1 !important;
+} */
+
+/* Force logo container visibility
+.sidebar-content-wrapper .sidebar-logo-container {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+} */
+
+/* Ensure sidebar menu has proper spacing */
+.sidebar-menu {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  min-height: 0 !important;
+}
+
+/* Responsive Sidebar Styles */
+@media (max-width: 960px) {
+  .demo-sidebar.v-navigation-drawer {
+    top: 56px !important;
+    height: calc(100vh - 56px) !important;
+    width: 280px !important;
+  }
+
+  .sidebar-menu-item {
+    margin: 2px 4px !important;
+    min-height: 48px !important;
+  }
+
+  .sidebar-menu-item .v-list-item__icon {
+    margin-right: 12px !important;
+  }
+
+  .sidebar-menu-item .v-list-item__title {
+    font-size: 0.875rem !important;
+  }
+
+  .sidebar-logo-container {
+    padding: 0 !important;
+  }
+
+  .sidebar-logo {
+    max-height: 97px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .demo-sidebar.v-navigation-drawer {
+    width: 260px !important;
+    top: 56px !important;
+    height: calc(100vh - 56px) !important;
+  }
+
+  .sidebar-menu-item {
+    min-height: 44px !important;
+    padding: 8px 12px !important;
+    margin: 2px 4px !important;
+  }
+
+  .sidebar-menu-item .v-icon {
+    font-size: 20px !important;
+  }
+
+  .sidebar-menu-item .v-list-item__title {
+    font-size: 0.8125rem !important;
+  }
+
+  .sidebar-logo-container {
+    padding: 0 !important;
+  }
+
+  .sidebar-logo {
+    max-height: 77px !important;
+  }
+}
+
+
+
+/* Cursor pointer for interactive elements */
+button, .v-btn, .v-icon, a, .v-list-item, .v-tab, [role="button"], [tabindex] { cursor: pointer; }
+button:hover, .v-btn:hover, .v-icon:hover, a:hover, .v-list-item:hover, .v-tab:hover, [role="button"]:hover, [tabindex]:hover { cursor: pointer; }

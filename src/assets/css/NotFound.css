@@ -1,0 +1,42 @@
+.not-found-container {
+  height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e8f1fb 0%, #ffffff 60%);
+}
+
+.not-found-hero .hero-content {
+  text-align: center;
+  padding: 32px;
+}
+
+.not-found-hero .code {
+  font-size: 96px;
+  font-weight: 900;
+  color: #497cb1;
+  letter-spacing: 4px;
+}
+
+.not-found-hero .title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 8px;
+  color: #2d527c;
+}
+
+.not-found-hero .subtitle {
+  margin-top: 8px;
+  color: #5b6b7a;
+}
+
+.go-home-btn {
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(73, 124, 177, 0.25);
+}
+
+
+
+/* Cursor pointer for interactive elements */
+button, .v-btn, .v-icon, a, .v-list-item, .v-tab, [role="button"], [tabindex] { cursor: pointer; }
+button:hover, .v-btn:hover, .v-icon:hover, a:hover, .v-list-item:hover, .v-tab:hover, [role="button"]:hover, [tabindex]:hover { cursor: pointer; }

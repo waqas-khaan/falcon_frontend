@@ -1,0 +1,54 @@
+/* User Role Login page styles */
+.user-role-login {
+  /* reserved for future customizations */
+}
+
+.login-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.login-container .v-text-field--outlined >>> .v-input__append-inner {
+  align-self: center !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.login-container .v-text-field--outlined >>> .v-input__append-inner .v-icon {
+  color: rgba(0, 0, 0, 0.54) !important;
+  transition: color 0.2s ease;
+}
+
+.login-container .v-text-field--outlined >>> .v-input__append-inner .v-icon:hover {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.login-container .v-text-field--outlined >>> .v-input__append-inner .pointer {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+/* Cursor pointer for interactive elements */
+button, .v-btn, .v-icon, a, .v-list-item, .v-tab, [role="button"], [tabindex] { cursor: pointer; }
+button:hover, .v-btn:hover, .v-icon:hover, a:hover, .v-list-item:hover, .v-tab:hover, [role="button"]:hover, [tabindex]:hover { cursor: pointer; }

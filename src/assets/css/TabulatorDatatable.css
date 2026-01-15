@@ -1,0 +1,123 @@
+.tabulator-container {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible !important;
+  z-index: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+}
+
+.tabulator-loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.tabulator-loading-content {
+  text-align: center;
+  color: #1976d2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabulator-loading-content p {
+  color: #1976d2;
+  font-weight: 500;
+  margin-top: 16px;
+}
+
+.tabulator-column-manager-btn-wrapper {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  z-index: 10001 !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.tabulator-column-manager-btn {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 4px !important;
+  padding: 4px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+}
+
+.column-item-list {
+  transition: background-color 0.2s;
+}
+
+.column-item-list:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.column-item-list.dragging {
+  opacity: 0.5;
+}
+
+.column-item-list.drag-over {
+  background-color: rgba(25, 118, 210, 0.1);
+  border-top: 2px solid #1976d2;
+}
+
+.column-manager-popover {
+  min-width: 260px;
+  max-height: 70vh;
+  overflow-y: auto;
+  border-radius: 8px !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* Position the column manager popover toward the top-right, under the icon */
+.column-manager-menu {
+  right: 16px !important;
+  left: auto !important;
+  margin-top: 115px !important; /* small gap below the icon */
+}
+
+
+
+/* Responsive behaviour for Tabulator tables */
+.responsive-tabulator .tabulator {
+  width: 100% !important;
+}
+
+.responsive-tabulator .tabulator-tableholder {
+  overflow-x: auto !important; /* allow horizontal scroll instead of clipping columns */
+}
+
+@media (max-width: 960px) {
+  /* Make footer pagination wrap nicely on smaller screens */
+  .responsive-tabulator .tabulator-footer {
+    flex-wrap: wrap;
+    row-gap: 4px;
+    padding: 4px 8px;
+  }
+
+  .responsive-tabulator .tabulator-footer .tabulator-page-size {
+    margin-bottom: 4px;
+  }
+
+  .responsive-tabulator .tabulator-footer .tabulator-pages {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+}

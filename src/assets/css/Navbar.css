@@ -1,0 +1,271 @@
+/* Navbar Styling */
+.demo-navbar.v-app-bar {
+  background-color: #f5f5f5 !important; /* match MainToolbar */
+  color: #333 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+  width: 100% !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.demo-navbar .v-toolbar__title {
+  color: #333 !important;
+  font-weight: 500 !important;
+}
+
+.navbar-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.navbar-logo {
+  height: 40px !important;
+  width: auto !important;
+  max-width: 200px !important;
+  object-fit: contain !important;
+  margin-right: 0 !important;
+}
+
+.navbar-page-title {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: #1976d2 !important;
+  letter-spacing: 0.5px !important;
+  margin-left: 0 !important;
+  position: relative !important;
+  padding-left: 16px !important;
+}
+
+.navbar-page-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 24px;
+  background-color: #e0e0e0;
+}
+
+.demo-navbar .v-app-bar-nav-icon {
+  color: #333 !important;
+}
+
+.demo-navbar .v-btn,
+.demo-navbar .v-btn .v-icon {
+  color: #1976d2 !important;
+  cursor: pointer;
+}
+
+.demo-navbar .v-app-bar-nav-icon {
+  cursor: pointer;
+}
+
+.demo-navbar button,
+.demo-navbar .v-icon {
+  cursor: pointer;
+}
+
+/* Center Time/Date Badge */
+.current-time-date {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(
+    135deg,
+    rgba(25, 118, 210, 0.08) 0%,
+    rgba(25, 118, 210, 0.18) 100%
+  ) !important;
+  border: 1px solid rgba(25, 118, 210, 0.25) !important;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.18) !important;
+  color: #0d47a1 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.4px !important;
+}
+
+.current-time-date .current-date {
+  text-transform: uppercase !important;
+  opacity: 0.9 !important;
+}
+
+.current-time-date .time-separator {
+  margin: 0 8px !important;
+  opacity: 0.5 !important;
+}
+
+.current-time-date .current-time {
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* User Role Badge in Navbar */
+.user-role-badge {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin-right: 16px !important;
+  padding: 6px 12px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(135deg, rgba(25, 118, 210, 0.08) 0%, rgba(25, 118, 210, 0.12) 100%) !important;
+  border: 1px solid rgba(25, 118, 210, 0.15) !important;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: default !important;
+}
+
+.user-role-badge:hover {
+  background: linear-gradient(135deg, rgba(25, 118, 210, 0.12) 0%, rgba(25, 118, 210, 0.16) 100%) !important;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+.user-role-icon {
+  color: #1976d2 !important;
+  font-size: 20px !important;
+  margin: 0 !important;
+  transition: transform 0.3s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.user-role-badge:hover .user-role-icon {
+  transform: scale(1.1) !important;
+}
+
+.user-info {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 2px !important;
+  min-width: 0 !important;
+}
+
+.user-name {
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  color: #1976d2 !important;
+  letter-spacing: 0.2px !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 140px !important;
+}
+
+.user-role-text {
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  color: #1976d2 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.4px !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  opacity: 0.85 !important;
+}
+
+/* Responsive Navbar Styles */
+@media (max-width: 960px) {
+  .demo-navbar.v-app-bar {
+    height: 56px !important;
+  }
+
+  .navbar-brand {
+    gap: 12px !important;
+  }
+
+  .navbar-logo {
+    height: 32px !important;
+    max-width: 150px !important;
+    margin-right: 0 !important;
+  }
+
+  .navbar-page-title {
+    font-size: 1.1rem !important;
+    padding-left: 12px !important;
+  }
+
+  .navbar-page-title::before {
+    height: 20px !important;
+  }
+
+  .user-role-badge {
+    margin-right: 8px !important;
+    padding: 6px 12px !important;
+    gap: 8px !important;
+  }
+
+  .user-role-icon {
+    font-size: 20px !important;
+  }
+
+  .user-name {
+    font-size: 0.8rem !important;
+    max-width: 120px !important;
+  }
+
+  .user-role-text {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.3px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-brand {
+    gap: 8px !important;
+  }
+
+  .navbar-logo {
+    height: 28px !important;
+    max-width: 120px !important;
+    margin-right: 0 !important;
+  }
+
+  .navbar-page-title {
+    font-size: 0.95rem !important;
+    padding-left: 8px !important;
+  }
+
+  .navbar-page-title::before {
+    height: 16px !important;
+    width: 1.5px !important;
+  }
+
+  .user-role-badge {
+    padding: 4px 8px !important;
+    margin-right: 4px !important;
+    gap: 6px !important;
+  }
+
+  .user-role-icon {
+    font-size: 18px !important;
+  }
+
+  .user-name {
+    font-size: 0.75rem !important;
+    max-width: 100px !important;
+  }
+
+  .user-role-text {
+    font-size: 0.65rem !important;
+    letter-spacing: 0.2px !important;
+  }
+
+  .demo-navbar .v-app-bar-nav-icon {
+    width: 40px !important;
+    height: 40px !important;
+    margin-left: 0 !important;
+  }
+}
+
+
+
+/* Cursor pointer for interactive elements */
+button, .v-btn, .v-icon, a, .v-list-item, .v-tab, [role="button"], [tabindex] { cursor: pointer; }
+button:hover, .v-btn:hover, .v-icon:hover, a:hover, .v-list-item:hover, .v-tab:hover, [role="button"]:hover, [tabindex]:hover { cursor: pointer; }
