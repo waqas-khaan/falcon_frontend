@@ -644,7 +644,7 @@
 
 <script>
 import api from "@/config/api";
-import dummyData from "@/data/dummyData.json";
+import dummyData from "@/data/dummyData.js";
 
 const dashboardStyles = /*css*/ `
   :root {
@@ -1582,7 +1582,9 @@ export default {
           };
         } else if (error.request) {
           // Network error - backend unavailable, use dummy data
-          console.log("Using dummy data for health status (backend unavailable)");
+          console.log(
+            "Using dummy data for health status (backend unavailable)"
+          );
           this.healthData = dummyData.health;
           this.healthError = null;
         }
@@ -1601,7 +1603,9 @@ export default {
         console.error("Error fetching system resources:", error);
         if (error.request && !error.response) {
           // Network error - backend unavailable, use dummy data
-          console.log("Using dummy data for system resources (backend unavailable)");
+          console.log(
+            "Using dummy data for system resources (backend unavailable)"
+          );
           this.systemResources = dummyData.systemResources;
         }
         // If error.response exists, backend responded - keep original error handling

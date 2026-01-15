@@ -337,7 +337,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import "@/assets/css/Records.css";
-import dummyData from "@/data/dummyData.json";
+import dummyData from "@/data/dummyData.js";
 
 export default {
   name: "Records-Section",

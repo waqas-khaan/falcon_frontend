@@ -447,7 +447,7 @@
 import api from "@/config/api";
 import { toast } from "@/utils/toast";
 import "@/assets/css/UserManagement.css";
-import dummyData from "@/data/dummyData.json";
+import dummyData from "@/data/dummyData.js";
 
 export default {
   name: "UserManagement",

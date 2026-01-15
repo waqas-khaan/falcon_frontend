@@ -654,7 +654,7 @@ import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import Cookies from "js-cookie";
 import "@/assets/css/Results.css";
-import dummyData from "@/data/dummyData.json";
+import dummyData from "@/data/dummyData.js";
 
 export default {
   name: "Register-Records",
