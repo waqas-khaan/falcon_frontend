@@ -1,11 +1,16 @@
 // Utility to fetch dummy data from online URL
 import axios from "axios";
+import localDummyData from "@/data/dummyData.js";
 
 // Default dummy data URL - can be overridden via environment variable
-// You can set VUE_APP_DUMMY_DATA_URL in .env file to use a custom URL
-const DUMMY_DATA_URL =
-  process.env.VUE_APP_DUMMY_DATA_URL ||
+// Using raw.githack.com for CORS support, or you can set VUE_APP_DUMMY_DATA_URL in .env file
+const GITHUB_RAW_URL =
   "https://raw.githubusercontent.com/waqas-khaan/falcon_UoP/main/frontend/src/data/dummyData.json";
+const CORS_PROXY_URL = GITHUB_RAW_URL.replace(
+  "raw.githubusercontent.com",
+  "raw.githack.com"
+);
+const DUMMY_DATA_URL = process.env.VUE_APP_DUMMY_DATA_URL || CORS_PROXY_URL;
 
 // Cache for dummy data
 let cachedDummyData = null;
@@ -26,23 +31,37 @@ export async function fetchDummyData() {
     return loadingPromise;
   }
 
-  // Create new loading promise
+  // Create new loading promise - will fallback to embedded data if fetch fails
   loadingPromise = axios
     .get(DUMMY_DATA_URL, {
-      timeout: 5000, // 5 second timeout
+      timeout: 10000, // 10 second timeout for production
       headers: {
         Accept: "application/json",
       },
+      // Add CORS handling
+      withCredentials: false,
     })
     .then((response) => {
-      cachedDummyData = response.data;
-      console.log("Dummy data fetched from URL:", DUMMY_DATA_URL);
-      return cachedDummyData;
+      if (response.data && typeof response.data === "object") {
+        cachedDummyData = response.data;
+        console.log(
+          "Dummy data fetched successfully from URL:",
+          DUMMY_DATA_URL
+        );
+        return cachedDummyData;
+      } else {
+        throw new Error("Invalid response data format");
+      }
     })
     .catch((error) => {
-      console.error("Failed to fetch dummy data from URL:", error);
-      // Return fallback dummy data if fetch fails
-      return getFallbackDummyData();
+      console.warn("Failed to fetch dummy data from URL:", DUMMY_DATA_URL);
+      console.warn("Error details:", error.message || error.code || error);
+      console.log("Using fallback dummy data instead");
+      // Always return fallback dummy data if fetch fails
+      const fallbackData = getFallbackDummyData();
+      // Cache fallback data so we don't keep trying to fetch
+      cachedDummyData = fallbackData;
+      return fallbackData;
     })
     .finally(() => {
       loadingPromise = null;
@@ -56,8 +75,12 @@ export async function fetchDummyData() {
  * @returns {Object} Fallback dummy data
  */
 function getFallbackDummyData() {
-  console.log("Using fallback dummy data");
-  return {
+  console.log("Using fallback dummy data (embedded in bundle)");
+  // Use the complete local dummy data that's bundled with the app
+  return localDummyData.default || localDummyData;
+
+  // Old fallback code below (kept as reference, but using import above)
+  /*return {
     statistics: {
       registerRecords: 1250,
       students: 850,
@@ -189,7 +212,7 @@ function getFallbackDummyData() {
         created_at: "2024-01-01T00:00:00Z",
       },
     ],
-  };
+  };*/
 }
 
 // Export default for backward compatibility
