@@ -1106,7 +1106,7 @@ export default {
       // Show loading when data starts loading
       this.loading = true;
     },
-    handleDataLoadError(error) {
+    async handleDataLoadError(error) {
       // Handle AJAX loading errors
       console.error("Error loading data via AJAX:", error);
       this.loading = false; // Hide loading on error

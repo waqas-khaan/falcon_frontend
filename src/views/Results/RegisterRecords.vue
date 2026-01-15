@@ -1090,7 +1090,7 @@ export default {
       this.loading = false;
       this.updateSelectedRowsCount();
     },
-    handleDataLoadError(error) {
+    async handleDataLoadError(error) {
       this.loading = false;
       console.error("Register records load error:", error);
       if (error.request && !error.response) {
