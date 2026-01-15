@@ -337,7 +337,92 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import "@/assets/css/Records.css";
-import { fetchDummyData } from "@/utils/dummyData";
+
+// Dummy data for fallback when backend is unavailable
+const dummyData = {
+  students: [
+    {
+      id: 1,
+      register_no: "REG001",
+      name: "Ahmed Khan",
+      father_name: "Muhammad Khan",
+      cnic: "35201-1234567-1",
+      college: "College of Engineering",
+      program: "Computer Science",
+      degree: "BS",
+      exam_year: 2024,
+      part: "Part I",
+      study_status: "Regular",
+      roll_no_from: "1001",
+      roll_no_to: "1001",
+      created_at: "2024-01-15T10:30:00Z"
+    },
+    {
+      id: 2,
+      register_no: "REG002",
+      name: "Fatima Ali",
+      father_name: "Hassan Ali",
+      cnic: "35201-2345678-2",
+      college: "College of Sciences",
+      program: "Mathematics",
+      degree: "BS",
+      exam_year: 2024,
+      part: "Part II",
+      study_status: "Regular",
+      roll_no_from: "2001",
+      roll_no_to: "2001",
+      created_at: "2024-01-16T11:20:00Z"
+    },
+    {
+      id: 3,
+      register_no: "REG003",
+      name: "Hassan Malik",
+      father_name: "Ibrahim Malik",
+      cnic: "35201-3456789-3",
+      college: "College of Business",
+      program: "Business Administration",
+      degree: "BBA",
+      exam_year: 2024,
+      part: "Part I",
+      study_status: "Private",
+      roll_no_from: "3001",
+      roll_no_to: "3001",
+      created_at: "2024-01-17T09:15:00Z"
+    },
+    {
+      id: 4,
+      register_no: "REG004",
+      name: "Ayesha Sheikh",
+      father_name: "Abdul Sheikh",
+      cnic: "35201-4567890-4",
+      college: "College of Engineering",
+      program: "Electrical Engineering",
+      degree: "BS",
+      exam_year: 2023,
+      part: "Part IV",
+      study_status: "Regular",
+      roll_no_from: "4001",
+      roll_no_to: "4001",
+      created_at: "2024-01-18T14:45:00Z"
+    },
+    {
+      id: 5,
+      register_no: "REG005",
+      name: "Usman Ahmad",
+      father_name: "Nadeem Ahmad",
+      cnic: "35201-5678901-5",
+      college: "College of Sciences",
+      program: "Physics",
+      degree: "BS",
+      exam_year: 2024,
+      part: "Part III",
+      study_status: "Regular",
+      roll_no_from: "5001",
+      roll_no_to: "5001",
+      created_at: "2024-01-19T16:30:00Z"
+    }
+  ]
+};
 
 export default {
   name: "Records-Section",
@@ -1232,17 +1317,12 @@ export default {
             "Failed to load student registration. Please try again.";
         }
       } else if (error.request && !error.response) {
-        // Network error - backend unavailable, use dummy data from online URL
+        // Network error - backend unavailable, use dummy data
         console.log("Using dummy data for students (backend unavailable)");
-        try {
-          const dummyData = await fetchDummyData();
-          if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData && dummyData?.students) {
-            this.$refs.tabulatorTable.setData(dummyData.students);
-          }
-          this.error = null;
-        } catch (dummyError) {
-          console.error("Failed to load dummy data:", dummyError);
+        if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData) {
+          this.$refs.tabulatorTable.setData(dummyData.students);
         }
+        this.error = null;
       } else {
         this.error = "An unexpected error occurred. Please try again.";
       }
@@ -2150,17 +2230,10 @@ export default {
               "Failed to load student registration. Please try again.";
           }
         } else if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data from online URL
+          // Network error - backend unavailable, use dummy data
           console.log("Using dummy data for students (backend unavailable)");
-          try {
-            const dummyData = await fetchDummyData();
-            if (dummyData?.students) {
-              this.students = dummyData.students;
-              this.error = null;
-            }
-          } catch (dummyError) {
-            console.error("Failed to load dummy data:", dummyError);
-          }
+          this.students = dummyData.students;
+          this.error = null;
         } else {
           this.error = "An unexpected error occurred. Please try again.";
         }

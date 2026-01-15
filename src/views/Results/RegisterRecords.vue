@@ -654,7 +654,114 @@ import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import Cookies from "js-cookie";
 import "@/assets/css/Results.css";
-import { fetchDummyData } from "@/utils/dummyData";
+
+// Dummy data for fallback when backend is unavailable
+const dummyData = {
+  registerRecords: [
+    {
+      id: 1,
+      register_no: "REG001",
+      degree: "BS",
+      exam_year: 2024,
+      part: "Part I",
+      study_status: "Regular",
+      year_as: "2024",
+      roll_no_from: "1001",
+      roll_no_to: "1001",
+      operator: "Admin User",
+      created_at: "2024-01-15T10:30:00Z"
+    },
+    {
+      id: 2,
+      register_no: "REG002",
+      degree: "BS",
+      exam_year: 2024,
+      part: "Part II",
+      study_status: "Regular",
+      year_as: "2024",
+      roll_no_from: "2001",
+      roll_no_to: "2001",
+      operator: "Admin User",
+      created_at: "2024-01-16T11:20:00Z"
+    },
+    {
+      id: 3,
+      register_no: "REG003",
+      degree: "BBA",
+      exam_year: 2024,
+      part: "Part I",
+      study_status: "Private",
+      year_as: "2024",
+      roll_no_from: "3001",
+      roll_no_to: "3001",
+      operator: "Data Entry Operator",
+      created_at: "2024-01-17T09:15:00Z"
+    },
+    {
+      id: 4,
+      register_no: "REG004",
+      degree: "BS",
+      exam_year: 2023,
+      part: "Part IV",
+      study_status: "Regular",
+      year_as: "2023",
+      roll_no_from: "4001",
+      roll_no_to: "4001",
+      operator: "Admin User",
+      created_at: "2024-01-18T14:45:00Z"
+    },
+    {
+      id: 5,
+      register_no: "REG005",
+      degree: "BS",
+      exam_year: 2024,
+      part: "Part III",
+      study_status: "Regular",
+      year_as: "2024",
+      roll_no_from: "5001",
+      roll_no_to: "5001",
+      operator: "Admin User",
+      created_at: "2024-01-19T16:30:00Z"
+    }
+  ],
+  degrees: [
+    {
+      id: 1,
+      name: "Bachelor of Science",
+      code: "BS",
+      description: "Bachelor of Science degree",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 2,
+      name: "Bachelor of Business Administration",
+      code: "BBA",
+      description: "Bachelor of Business Administration degree",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 3,
+      name: "Master of Science",
+      code: "MS",
+      description: "Master of Science degree",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 4,
+      name: "Master of Business Administration",
+      code: "MBA",
+      description: "Master of Business Administration degree",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 5,
+      name: "Doctor of Philosophy",
+      code: "PhD",
+      description: "Doctor of Philosophy degree",
+      created_at: "2024-01-01T00:00:00Z"
+    }
+  ]
+};
 
 export default {
   name: "Register-Records",
@@ -1094,15 +1201,10 @@ export default {
       this.loading = false;
       console.error("Register records load error:", error);
       if (error.request && !error.response) {
-        // Network error - backend unavailable, use dummy data from online URL
+        // Network error - backend unavailable, use dummy data
         console.log("Using dummy data for register records (backend unavailable)");
-        try {
-          const dummyData = await fetchDummyData();
-          if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData && dummyData?.registerRecords) {
-            this.$refs.tabulatorTable.setData(dummyData.registerRecords);
-          }
-        } catch (dummyError) {
-          console.error("Failed to load dummy data:", dummyError);
+        if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData) {
+          this.$refs.tabulatorTable.setData(dummyData.registerRecords);
         }
       } else {
         toast.error("Failed to load register records");
@@ -1394,16 +1496,9 @@ export default {
       } catch (error) {
         console.error("Error fetching degrees:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data from online URL
+          // Network error - backend unavailable, use dummy data
           console.log("Using dummy data for degrees (backend unavailable)");
-          try {
-            const dummyData = await fetchDummyData();
-            if (dummyData?.degrees) {
-              this.degreeList = dummyData.degrees.map((d) => d.name).filter(Boolean);
-            }
-          } catch (dummyError) {
-            console.error("Failed to load dummy data:", dummyError);
-          }
+          this.degreeList = dummyData.degrees.map((d) => d.name).filter(Boolean);
         } else {
           toast.error(error.response?.data?.error || "Failed to fetch degrees");
         }
@@ -1430,22 +1525,15 @@ export default {
       } catch (error) {
         console.error("Error fetching operators:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data from online URL
+          // Network error - backend unavailable, use dummy data
           console.log("Using dummy data for operators (backend unavailable)");
-          try {
-            const dummyData = await fetchDummyData();
-            if (dummyData?.registerRecords) {
-              const uniqueOperators = [
-                ...new Set(
-                  dummyData.registerRecords.map((r) => r.operator).filter((o) => o && o.trim() !== "")
-                ),
-              ].sort();
-              this.operatorList = uniqueOperators;
-              this.updateOperatorFilter();
-            }
-          } catch (dummyError) {
-            console.error("Failed to load dummy data:", dummyError);
-          }
+          const uniqueOperators = [
+            ...new Set(
+              dummyData.registerRecords.map((r) => r.operator).filter((o) => o && o.trim() !== "")
+            ),
+          ].sort();
+          this.operatorList = uniqueOperators;
+          this.updateOperatorFilter();
         }
       }
     },

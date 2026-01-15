@@ -383,7 +383,97 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import "@/assets/css/Results.css";
-import { fetchDummyData } from "@/utils/dummyData";
+
+// Dummy data for fallback when backend is unavailable
+const dummyData = {
+  results: [
+    {
+      id: 1,
+      register_no: "REG001",
+      student_name: "Ahmed Khan",
+      college: "College of Engineering",
+      program: "Computer Science",
+      degree: "BS",
+      exam_year: 2024,
+      part: "Part I",
+      total_marks: 850,
+      obtained_marks: 720,
+      percentage: 84.71,
+      grade: "A",
+      status: "Pass",
+      operator: "Admin User",
+      created_at: "2024-02-01T10:00:00Z"
+    },
+    {
+      id: 2,
+      register_no: "REG002",
+      student_name: "Fatima Ali",
+      college: "College of Sciences",
+      program: "Mathematics",
+      degree: "BS",
+      exam_year: 2024,
+      part: "Part II",
+      total_marks: 900,
+      obtained_marks: 810,
+      percentage: 90.0,
+      grade: "A+",
+      status: "Pass",
+      operator: "Admin User",
+      created_at: "2024-02-02T11:30:00Z"
+    },
+    {
+      id: 3,
+      register_no: "REG003",
+      student_name: "Hassan Malik",
+      college: "College of Business",
+      program: "Business Administration",
+      degree: "BBA",
+      exam_year: 2024,
+      part: "Part I",
+      total_marks: 800,
+      obtained_marks: 650,
+      percentage: 81.25,
+      grade: "A",
+      status: "Pass",
+      operator: "Data Entry Operator",
+      created_at: "2024-02-03T09:15:00Z"
+    },
+    {
+      id: 4,
+      register_no: "REG004",
+      student_name: "Ayesha Sheikh",
+      college: "College of Engineering",
+      program: "Electrical Engineering",
+      degree: "BS",
+      exam_year: 2023,
+      part: "Part IV",
+      total_marks: 1000,
+      obtained_marks: 920,
+      percentage: 92.0,
+      grade: "A+",
+      status: "Pass",
+      operator: "Admin User",
+      created_at: "2024-02-04T14:20:00Z"
+    },
+    {
+      id: 5,
+      register_no: "REG005",
+      student_name: "Usman Ahmad",
+      college: "College of Sciences",
+      program: "Physics",
+      degree: "BS",
+      exam_year: 2024,
+      part: "Part III",
+      total_marks: 850,
+      obtained_marks: 680,
+      percentage: 80.0,
+      grade: "A",
+      status: "Pass",
+      operator: "Admin User",
+      created_at: "2024-02-05T16:45:00Z"
+    }
+  ]
+};
 
 export default {
   name: "Results-Section",
@@ -1126,17 +1216,12 @@ export default {
             "Failed to load results. Please try again.";
         }
       } else if (error.request && !error.response) {
-        // Network error - backend unavailable, use dummy data from online URL
+        // Network error - backend unavailable, use dummy data
         console.log("Using dummy data for results (backend unavailable)");
-        try {
-          const dummyData = await fetchDummyData();
-          if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData && dummyData?.results) {
-            this.$refs.tabulatorTable.setData(dummyData.results);
-          }
-          this.error = null;
-        } catch (dummyError) {
-          console.error("Failed to load dummy data:", dummyError);
+        if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData) {
+          this.$refs.tabulatorTable.setData(dummyData.results);
         }
+        this.error = null;
       } else {
         this.error = "An unexpected error occurred. Please try again.";
       }
@@ -1814,22 +1899,15 @@ export default {
       } catch (error) {
         console.error("Error fetching operators:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data from online URL
+          // Network error - backend unavailable, use dummy data
           console.log("Using dummy data for operators (backend unavailable)");
-          try {
-            const dummyData = await fetchDummyData();
-            if (dummyData?.results) {
-              const uniqueOperators = [
-                ...new Set(
-                  dummyData.results.map((r) => r.operator).filter((o) => o && o.trim() !== "")
-                ),
-              ].sort();
-              this.operatorList = uniqueOperators;
-              this.updateOperatorFilter();
-            }
-          } catch (dummyError) {
-            console.error("Failed to load dummy data:", dummyError);
-          }
+          const uniqueOperators = [
+            ...new Set(
+              dummyData.results.map((r) => r.operator || "").filter((o) => o && o.trim() !== "")
+            ),
+          ].sort();
+          this.operatorList = uniqueOperators;
+          this.updateOperatorFilter();
         }
       }
     },

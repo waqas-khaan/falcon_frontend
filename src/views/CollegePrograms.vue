@@ -872,7 +872,169 @@
 import api from "@/config/api";
 import { toast } from "@/utils/toast";
 import "@/assets/css/CollegePrograms.css";
-import { fetchDummyData } from "@/utils/dummyData";
+
+// Dummy data for fallback when backend is unavailable
+const dummyData = {
+  colleges: [
+    {
+      id: 1,
+      name: "College of Engineering",
+      code: "COE",
+      description: "Engineering programs",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 2,
+      name: "College of Sciences",
+      code: "COS",
+      description: "Science programs",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 3,
+      name: "College of Business",
+      code: "COB",
+      description: "Business programs",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 4,
+      name: "College of Arts",
+      code: "COA",
+      description: "Arts and humanities programs",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 5,
+      name: "College of Medicine",
+      code: "COM",
+      description: "Medical programs",
+      created_at: "2024-01-01T00:00:00Z"
+    }
+  ],
+  programs: [
+    {
+      id: 1,
+      name: "Computer Science",
+      code: "CS",
+      college_id: 1,
+      college: "College of Engineering",
+      description: "Computer Science program",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 2,
+      name: "Electrical Engineering",
+      code: "EE",
+      college_id: 1,
+      college: "College of Engineering",
+      description: "Electrical Engineering program",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 3,
+      name: "Mathematics",
+      code: "MATH",
+      college_id: 2,
+      college: "College of Sciences",
+      description: "Mathematics program",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 4,
+      name: "Physics",
+      code: "PHY",
+      college_id: 2,
+      college: "College of Sciences",
+      description: "Physics program",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 5,
+      name: "Business Administration",
+      code: "BBA",
+      college_id: 3,
+      college: "College of Business",
+      description: "Business Administration program",
+      created_at: "2024-01-01T00:00:00Z"
+    }
+  ],
+  degrees: [
+    {
+      id: 1,
+      name: "Bachelor of Science",
+      code: "BS",
+      description: "Bachelor of Science degree",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 2,
+      name: "Bachelor of Business Administration",
+      code: "BBA",
+      description: "Bachelor of Business Administration degree",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 3,
+      name: "Master of Science",
+      code: "MS",
+      description: "Master of Science degree",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 4,
+      name: "Master of Business Administration",
+      code: "MBA",
+      description: "Master of Business Administration degree",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 5,
+      name: "Doctor of Philosophy",
+      code: "PhD",
+      description: "Doctor of Philosophy degree",
+      created_at: "2024-01-01T00:00:00Z"
+    }
+  ],
+  divisionsGrades: [
+    {
+      id: 1,
+      name: "First Division",
+      code: "1ST",
+      min_percentage: 60,
+      max_percentage: 100,
+      description: "First Division",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 2,
+      name: "Second Division",
+      code: "2ND",
+      min_percentage: 45,
+      max_percentage: 59.99,
+      description: "Second Division",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 3,
+      name: "Third Division",
+      code: "3RD",
+      min_percentage: 33,
+      max_percentage: 44.99,
+      description: "Third Division",
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 4,
+      name: "Fail",
+      code: "FAIL",
+      min_percentage: 0,
+      max_percentage: 32.99,
+      description: "Fail",
+      created_at: "2024-01-01T00:00:00Z"
+    }
+  ]
+};
 
 export default {
   name: "CollegePrograms",
@@ -1050,16 +1212,9 @@ export default {
       } catch (error) {
         console.error("Error fetching colleges:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data from online URL
+          // Network error - backend unavailable, use dummy data
           console.log("Using dummy data for colleges (backend unavailable)");
-          try {
-            const dummyData = await fetchDummyData();
-            if (dummyData?.colleges) {
-              this.colleges = dummyData.colleges;
-            }
-          } catch (dummyError) {
-            console.error("Failed to load dummy data:", dummyError);
-          }
+          this.colleges = dummyData.colleges;
         } else {
           toast.error(error.response?.data?.error || "Failed to fetch colleges");
         }
@@ -1074,16 +1229,9 @@ export default {
       } catch (error) {
         console.error("Error fetching programs:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data from online URL
+          // Network error - backend unavailable, use dummy data
           console.log("Using dummy data for programs (backend unavailable)");
-          try {
-            const dummyData = await fetchDummyData();
-            if (dummyData?.programs) {
-              this.programs = dummyData.programs;
-            }
-          } catch (dummyError) {
-            console.error("Failed to load dummy data:", dummyError);
-          }
+          this.programs = dummyData.programs;
         } else {
           toast.error(error.response?.data?.error || "Failed to fetch programs");
         }
@@ -1098,16 +1246,9 @@ export default {
       } catch (error) {
         console.error("Error fetching degrees:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data from online URL
+          // Network error - backend unavailable, use dummy data
           console.log("Using dummy data for degrees (backend unavailable)");
-          try {
-            const dummyData = await fetchDummyData();
-            if (dummyData?.degrees) {
-              this.degrees = dummyData.degrees;
-            }
-          } catch (dummyError) {
-            console.error("Failed to load dummy data:", dummyError);
-          }
+          this.degrees = dummyData.degrees;
         } else {
           toast.error(error.response?.data?.error || "Failed to fetch degrees");
         }
@@ -1122,16 +1263,9 @@ export default {
       } catch (error) {
         console.error("Error fetching divisions/grades:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data from online URL
+          // Network error - backend unavailable, use dummy data
           console.log("Using dummy data for divisions/grades (backend unavailable)");
-          try {
-            const dummyData = await fetchDummyData();
-            if (dummyData?.divisionsGrades) {
-              this.divisionsGrades = dummyData.divisionsGrades;
-            }
-          } catch (dummyError) {
-            console.error("Failed to load dummy data:", dummyError);
-          }
+          this.divisionsGrades = dummyData.divisionsGrades;
         } else {
           toast.error(
             error.response?.data?.error || "Failed to fetch divisions/grades"

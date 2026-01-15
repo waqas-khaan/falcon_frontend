@@ -447,7 +447,57 @@
 import api from "@/config/api";
 import { toast } from "@/utils/toast";
 import "@/assets/css/UserManagement.css";
-import { fetchDummyData } from "@/utils/dummyData";
+
+// Dummy data for fallback when backend is unavailable
+const dummyData = {
+  users: [
+    {
+      id: 1,
+      username: "admin",
+      email: "admin@university.edu",
+      role: "admin",
+      full_name: "Administrator",
+      is_active: true,
+      created_at: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: 2,
+      username: "dataentry",
+      email: "dataentry@university.edu",
+      role: "data_entry",
+      full_name: "Data Entry Operator",
+      is_active: true,
+      created_at: "2024-01-02T00:00:00Z"
+    },
+    {
+      id: 3,
+      username: "viewer",
+      email: "viewer@university.edu",
+      role: "viewer",
+      full_name: "Viewer User",
+      is_active: true,
+      created_at: "2024-01-03T00:00:00Z"
+    },
+    {
+      id: 4,
+      username: "manager",
+      email: "manager@university.edu",
+      role: "manager",
+      full_name: "Manager User",
+      is_active: true,
+      created_at: "2024-01-04T00:00:00Z"
+    },
+    {
+      id: 5,
+      username: "inactive_user",
+      email: "inactive@university.edu",
+      role: "viewer",
+      full_name: "Inactive User",
+      is_active: false,
+      created_at: "2024-01-05T00:00:00Z"
+    }
+  ]
+};
 
 export default {
   name: "UserManagement",
@@ -567,17 +617,10 @@ export default {
               "Failed to load users. Please try again.";
           }
         } else if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data from online URL
+          // Network error - backend unavailable, use dummy data
           console.log("Using dummy data for users (backend unavailable)");
-          try {
-            const dummyData = await fetchDummyData();
-            if (dummyData?.users) {
-              this.users = dummyData.users;
-              this.error = null;
-            }
-          } catch (dummyError) {
-            console.error("Failed to load dummy data:", dummyError);
-          }
+          this.users = dummyData.users;
+          this.error = null;
         } else {
           this.error = "An unexpected error occurred. Please try again.";
         }

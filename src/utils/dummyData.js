@@ -1,6 +1,5 @@
 // Utility to fetch dummy data from online URL
 import axios from "axios";
-import localDummyData from "@/data/dummyData.js";
 
 // Default dummy data URL - can be overridden via environment variable
 // Using raw.githack.com for CORS support, or you can set VUE_APP_DUMMY_DATA_URL in .env file
