@@ -337,6 +337,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import "@/assets/css/Records.css";
+import dummyData from "@/data/dummyData.json";
 
 export default {
   name: "Records-Section",
@@ -1230,9 +1231,13 @@ export default {
             error.response.data?.error ||
             "Failed to load student registration. Please try again.";
         }
-      } else if (error.request) {
-        this.error =
-          "Unable to connect to the server. Please check your internet connection and try again.";
+      } else if (error.request && !error.response) {
+        // Network error - backend unavailable, use dummy data
+        console.log("Using dummy data for students (backend unavailable)");
+        if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData) {
+          this.$refs.tabulatorTable.setData(dummyData.students);
+        }
+        this.error = null;
       } else {
         this.error = "An unexpected error occurred. Please try again.";
       }
@@ -2139,9 +2144,11 @@ export default {
               error.response.data?.error ||
               "Failed to load student registration. Please try again.";
           }
-        } else if (error.request) {
-          this.error =
-            "Unable to connect to the server. Please check your internet connection and try again.";
+        } else if (error.request && !error.response) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for students (backend unavailable)");
+          this.students = dummyData.students;
+          this.error = null;
         } else {
           this.error = "An unexpected error occurred. Please try again.";
         }

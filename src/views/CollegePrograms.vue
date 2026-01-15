@@ -872,6 +872,7 @@
 import api from "@/config/api";
 import { toast } from "@/utils/toast";
 import "@/assets/css/CollegePrograms.css";
+import dummyData from "@/data/dummyData.json";
 
 export default {
   name: "CollegePrograms",
@@ -1048,7 +1049,13 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching colleges:", error);
-        toast.error(error.response?.data?.error || "Failed to fetch colleges");
+        if (error.request && !error.response) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for colleges (backend unavailable)");
+          this.colleges = dummyData.colleges;
+        } else {
+          toast.error(error.response?.data?.error || "Failed to fetch colleges");
+        }
       }
     },
     async fetchPrograms() {
@@ -1059,7 +1066,13 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching programs:", error);
-        toast.error(error.response?.data?.error || "Failed to fetch programs");
+        if (error.request && !error.response) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for programs (backend unavailable)");
+          this.programs = dummyData.programs;
+        } else {
+          toast.error(error.response?.data?.error || "Failed to fetch programs");
+        }
       }
     },
     async fetchDegrees() {
@@ -1070,7 +1083,13 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching degrees:", error);
-        toast.error(error.response?.data?.error || "Failed to fetch degrees");
+        if (error.request && !error.response) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for degrees (backend unavailable)");
+          this.degrees = dummyData.degrees;
+        } else {
+          toast.error(error.response?.data?.error || "Failed to fetch degrees");
+        }
       }
     },
     async fetchDivisionsGrades() {
@@ -1081,9 +1100,15 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching divisions/grades:", error);
-        toast.error(
-          error.response?.data?.error || "Failed to fetch divisions/grades"
-        );
+        if (error.request && !error.response) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for divisions/grades (backend unavailable)");
+          this.divisionsGrades = dummyData.divisionsGrades;
+        } else {
+          toast.error(
+            error.response?.data?.error || "Failed to fetch divisions/grades"
+          );
+        }
       }
     },
     async addCollege() {

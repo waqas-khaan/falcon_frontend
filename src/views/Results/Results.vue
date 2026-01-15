@@ -383,6 +383,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import "@/assets/css/Results.css";
+import dummyData from "@/data/dummyData.json";
 
 export default {
   name: "Results-Section",
@@ -1124,9 +1125,13 @@ export default {
             error.response.data?.error ||
             "Failed to load results. Please try again.";
         }
-      } else if (error.request) {
-        this.error =
-          "Unable to connect to the server. Please check your internet connection and try again.";
+      } else if (error.request && !error.response) {
+        // Network error - backend unavailable, use dummy data
+        console.log("Using dummy data for results (backend unavailable)");
+        if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData) {
+          this.$refs.tabulatorTable.setData(dummyData.results);
+        }
+        this.error = null;
       } else {
         this.error = "An unexpected error occurred. Please try again.";
       }
@@ -1803,6 +1808,17 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching operators:", error);
+        if (error.request && !error.response) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for operators (backend unavailable)");
+          const uniqueOperators = [
+            ...new Set(
+              dummyData.results.map((r) => r.operator).filter((o) => o && o.trim() !== "")
+            ),
+          ].sort();
+          this.operatorList = uniqueOperators;
+          this.updateOperatorFilter();
+        }
       }
     },
     updateOperatorFilter() {

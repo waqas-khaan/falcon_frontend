@@ -654,6 +654,7 @@ import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import Cookies from "js-cookie";
 import "@/assets/css/Results.css";
+import dummyData from "@/data/dummyData.json";
 
 export default {
   name: "Register-Records",
@@ -1092,7 +1093,15 @@ export default {
     handleDataLoadError(error) {
       this.loading = false;
       console.error("Register records load error:", error);
-      toast.error("Failed to load register records");
+      if (error.request && !error.response) {
+        // Network error - backend unavailable, use dummy data
+        console.log("Using dummy data for register records (backend unavailable)");
+        if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData) {
+          this.$refs.tabulatorTable.setData(dummyData.registerRecords);
+        }
+      } else {
+        toast.error("Failed to load register records");
+      }
     },
     // eslint-disable-next-line no-unused-vars
     handleRowSelected(_rowData, _row) {
@@ -1379,7 +1388,13 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching degrees:", error);
-        toast.error(error.response?.data?.error || "Failed to fetch degrees");
+        if (error.request && !error.response) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for degrees (backend unavailable)");
+          this.degreeList = dummyData.degrees.map((d) => d.name).filter(Boolean);
+        } else {
+          toast.error(error.response?.data?.error || "Failed to fetch degrees");
+        }
       }
     },
     getOperatorFilterValues() {
@@ -1402,6 +1417,17 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching operators:", error);
+        if (error.request && !error.response) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for operators (backend unavailable)");
+          const uniqueOperators = [
+            ...new Set(
+              dummyData.registerRecords.map((r) => r.operator).filter((o) => o && o.trim() !== "")
+            ),
+          ].sort();
+          this.operatorList = uniqueOperators;
+          this.updateOperatorFilter();
+        }
       }
     },
     updateOperatorFilter() {

@@ -644,6 +644,7 @@
 
 <script>
 import api from "@/config/api";
+import dummyData from "@/data/dummyData.json";
 
 const dashboardStyles = /*css*/ `
   :root {
@@ -1540,15 +1541,19 @@ export default {
         console.error("Error fetching statistics:", error);
         if (error.response) {
           console.error("Error response:", error.response.data);
+          // Backend responded with error - keep original error handling
+          this.statistics = {
+            registerRecords: 0,
+            students: 0,
+            colleges: 0,
+            programs: 0,
+            results: 0,
+          };
+        } else if (error.request) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for statistics (backend unavailable)");
+          this.statistics = dummyData.statistics;
         }
-        // Set default values on error
-        this.statistics = {
-          registerRecords: 0,
-          students: 0,
-          colleges: 0,
-          programs: 0,
-          results: 0,
-        };
       } finally {
         this.loading = false;
       }
@@ -1561,18 +1566,26 @@ export default {
         this.healthData = response.data;
       } catch (error) {
         console.error("Error fetching health status:", error);
-        this.healthError =
-          error.response?.data?.error ||
-          error.message ||
-          "Failed to fetch health status";
-        this.healthData = {
-          status: "error",
-          message: "Health check failed",
-          database: {
-            status: "unknown",
-            connected: false,
-          },
-        };
+        if (error.response) {
+          // Backend responded with error - keep original error handling
+          this.healthError =
+            error.response?.data?.error ||
+            error.message ||
+            "Failed to fetch health status";
+          this.healthData = {
+            status: "error",
+            message: "Health check failed",
+            database: {
+              status: "unknown",
+              connected: false,
+            },
+          };
+        } else if (error.request) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for health status (backend unavailable)");
+          this.healthData = dummyData.health;
+          this.healthError = null;
+        }
       } finally {
         this.healthLoading = false;
       }
@@ -1586,6 +1599,12 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching system resources:", error);
+        if (error.request && !error.response) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for system resources (backend unavailable)");
+          this.systemResources = dummyData.systemResources;
+        }
+        // If error.response exists, backend responded - keep original error handling
       } finally {
         this.resourcesLoading = false;
       }
