@@ -872,7 +872,7 @@
 import api from "@/config/api";
 import { toast } from "@/utils/toast";
 import "@/assets/css/CollegePrograms.css";
-import dummyData from "@/data/dummyData.js";
+import { fetchDummyData } from "@/utils/dummyData";
 
 export default {
   name: "CollegePrograms",
@@ -1050,9 +1050,16 @@ export default {
       } catch (error) {
         console.error("Error fetching colleges:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log("Using dummy data for colleges (backend unavailable)");
-          this.colleges = dummyData.colleges;
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData?.colleges) {
+              this.colleges = dummyData.colleges;
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
+          }
         } else {
           toast.error(error.response?.data?.error || "Failed to fetch colleges");
         }
@@ -1067,9 +1074,16 @@ export default {
       } catch (error) {
         console.error("Error fetching programs:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log("Using dummy data for programs (backend unavailable)");
-          this.programs = dummyData.programs;
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData?.programs) {
+              this.programs = dummyData.programs;
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
+          }
         } else {
           toast.error(error.response?.data?.error || "Failed to fetch programs");
         }
@@ -1084,9 +1098,16 @@ export default {
       } catch (error) {
         console.error("Error fetching degrees:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log("Using dummy data for degrees (backend unavailable)");
-          this.degrees = dummyData.degrees;
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData?.degrees) {
+              this.degrees = dummyData.degrees;
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
+          }
         } else {
           toast.error(error.response?.data?.error || "Failed to fetch degrees");
         }
@@ -1101,9 +1122,16 @@ export default {
       } catch (error) {
         console.error("Error fetching divisions/grades:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log("Using dummy data for divisions/grades (backend unavailable)");
-          this.divisionsGrades = dummyData.divisionsGrades;
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData?.divisionsGrades) {
+              this.divisionsGrades = dummyData.divisionsGrades;
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
+          }
         } else {
           toast.error(
             error.response?.data?.error || "Failed to fetch divisions/grades"

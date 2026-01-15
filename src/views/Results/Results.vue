@@ -383,7 +383,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import "@/assets/css/Results.css";
-import dummyData from "@/data/dummyData.js";
+import { fetchDummyData } from "@/utils/dummyData";
 
 export default {
   name: "Results-Section",
@@ -1126,12 +1126,17 @@ export default {
             "Failed to load results. Please try again.";
         }
       } else if (error.request && !error.response) {
-        // Network error - backend unavailable, use dummy data
+        // Network error - backend unavailable, use dummy data from online URL
         console.log("Using dummy data for results (backend unavailable)");
-        if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData) {
-          this.$refs.tabulatorTable.setData(dummyData.results);
+        try {
+          const dummyData = await fetchDummyData();
+          if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData && dummyData?.results) {
+            this.$refs.tabulatorTable.setData(dummyData.results);
+          }
+          this.error = null;
+        } catch (dummyError) {
+          console.error("Failed to load dummy data:", dummyError);
         }
-        this.error = null;
       } else {
         this.error = "An unexpected error occurred. Please try again.";
       }
@@ -1809,15 +1814,22 @@ export default {
       } catch (error) {
         console.error("Error fetching operators:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log("Using dummy data for operators (backend unavailable)");
-          const uniqueOperators = [
-            ...new Set(
-              dummyData.results.map((r) => r.operator).filter((o) => o && o.trim() !== "")
-            ),
-          ].sort();
-          this.operatorList = uniqueOperators;
-          this.updateOperatorFilter();
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData?.results) {
+              const uniqueOperators = [
+                ...new Set(
+                  dummyData.results.map((r) => r.operator).filter((o) => o && o.trim() !== "")
+                ),
+              ].sort();
+              this.operatorList = uniqueOperators;
+              this.updateOperatorFilter();
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
+          }
         }
       }
     },

@@ -654,7 +654,7 @@ import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import Cookies from "js-cookie";
 import "@/assets/css/Results.css";
-import dummyData from "@/data/dummyData.js";
+import { fetchDummyData } from "@/utils/dummyData";
 
 export default {
   name: "Register-Records",
@@ -1094,10 +1094,15 @@ export default {
       this.loading = false;
       console.error("Register records load error:", error);
       if (error.request && !error.response) {
-        // Network error - backend unavailable, use dummy data
+        // Network error - backend unavailable, use dummy data from online URL
         console.log("Using dummy data for register records (backend unavailable)");
-        if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData) {
-          this.$refs.tabulatorTable.setData(dummyData.registerRecords);
+        try {
+          const dummyData = await fetchDummyData();
+          if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData && dummyData?.registerRecords) {
+            this.$refs.tabulatorTable.setData(dummyData.registerRecords);
+          }
+        } catch (dummyError) {
+          console.error("Failed to load dummy data:", dummyError);
         }
       } else {
         toast.error("Failed to load register records");
@@ -1389,9 +1394,16 @@ export default {
       } catch (error) {
         console.error("Error fetching degrees:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log("Using dummy data for degrees (backend unavailable)");
-          this.degreeList = dummyData.degrees.map((d) => d.name).filter(Boolean);
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData?.degrees) {
+              this.degreeList = dummyData.degrees.map((d) => d.name).filter(Boolean);
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
+          }
         } else {
           toast.error(error.response?.data?.error || "Failed to fetch degrees");
         }
@@ -1418,15 +1430,22 @@ export default {
       } catch (error) {
         console.error("Error fetching operators:", error);
         if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log("Using dummy data for operators (backend unavailable)");
-          const uniqueOperators = [
-            ...new Set(
-              dummyData.registerRecords.map((r) => r.operator).filter((o) => o && o.trim() !== "")
-            ),
-          ].sort();
-          this.operatorList = uniqueOperators;
-          this.updateOperatorFilter();
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData?.registerRecords) {
+              const uniqueOperators = [
+                ...new Set(
+                  dummyData.registerRecords.map((r) => r.operator).filter((o) => o && o.trim() !== "")
+                ),
+              ].sort();
+              this.operatorList = uniqueOperators;
+              this.updateOperatorFilter();
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
+          }
         }
       }
     },

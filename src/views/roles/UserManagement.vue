@@ -447,7 +447,7 @@
 import api from "@/config/api";
 import { toast } from "@/utils/toast";
 import "@/assets/css/UserManagement.css";
-import dummyData from "@/data/dummyData.js";
+import { fetchDummyData } from "@/utils/dummyData";
 
 export default {
   name: "UserManagement",
@@ -567,10 +567,17 @@ export default {
               "Failed to load users. Please try again.";
           }
         } else if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log("Using dummy data for users (backend unavailable)");
-          this.users = dummyData.users;
-          this.error = null;
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData?.users) {
+              this.users = dummyData.users;
+              this.error = null;
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
+          }
         } else {
           this.error = "An unexpected error occurred. Please try again.";
         }

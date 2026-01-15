@@ -644,10 +644,7 @@
 
 <script>
 import api from "@/config/api";
-import dummyData from "@/data/dummyData.js";
-
-// Verify dummy data is loaded
-console.log("Dummy data imported:", dummyData ? "Yes" : "No", dummyData);
+import { fetchDummyData } from "@/utils/dummyData";
 
 const dashboardStyles = /*css*/ `
   :root {
@@ -1552,12 +1549,17 @@ export default {
           (!error.response && error.request);
 
         if (isNetworkError) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log("Using dummy data for statistics (backend unavailable)");
-          if (dummyData && dummyData.statistics) {
-            this.statistics = dummyData.statistics;
-          } else {
-            console.error("Dummy data not available!");
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData && dummyData.statistics) {
+              this.statistics = dummyData.statistics;
+            } else {
+              throw new Error("Dummy data statistics not available");
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
             this.statistics = {
               registerRecords: 0,
               students: 0,
@@ -1579,8 +1581,13 @@ export default {
         } else {
           // Other error - try using dummy data as fallback
           console.log("Unknown error, using dummy data as fallback");
-          if (dummyData && dummyData.statistics) {
-            this.statistics = dummyData.statistics;
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData && dummyData.statistics) {
+              this.statistics = dummyData.statistics;
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
           }
         }
       } finally {
@@ -1605,15 +1612,20 @@ export default {
           (!error.response && error.request);
 
         if (isNetworkError) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log(
             "Using dummy data for health status (backend unavailable)"
           );
-          if (dummyData && dummyData.health) {
-            this.healthData = dummyData.health;
-            this.healthError = null;
-          } else {
-            console.error("Dummy data not available!");
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData && dummyData.health) {
+              this.healthData = dummyData.health;
+              this.healthError = null;
+            } else {
+              throw new Error("Dummy data health not available");
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
             this.healthError = "Failed to fetch health status";
             this.healthData = {
               status: "error",
@@ -1641,9 +1653,14 @@ export default {
         } else {
           // Other error - try using dummy data as fallback
           console.log("Unknown error, using dummy data as fallback");
-          if (dummyData && dummyData.health) {
-            this.healthData = dummyData.health;
-            this.healthError = null;
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData && dummyData.health) {
+              this.healthData = dummyData.health;
+              this.healthError = null;
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
           }
         }
       } finally {
@@ -1669,22 +1686,30 @@ export default {
           (!error.response && error.request);
 
         if (isNetworkError) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log(
             "Using dummy data for system resources (backend unavailable)"
           );
-          if (dummyData && dummyData.systemResources) {
-            this.systemResources = dummyData.systemResources;
-          } else {
-            console.error("Dummy data not available!");
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData && dummyData.systemResources) {
+              this.systemResources = dummyData.systemResources;
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
           }
         } else if (error.response) {
           // Backend responded with error - keep original error handling (do nothing)
         } else {
           // Other error - try using dummy data as fallback
           console.log("Unknown error, using dummy data as fallback");
-          if (dummyData && dummyData.systemResources) {
-            this.systemResources = dummyData.systemResources;
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData && dummyData.systemResources) {
+              this.systemResources = dummyData.systemResources;
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
           }
         }
       } finally {

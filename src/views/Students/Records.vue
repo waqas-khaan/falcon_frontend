@@ -337,7 +337,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
 import "@/assets/css/Records.css";
-import dummyData from "@/data/dummyData.js";
+import { fetchDummyData } from "@/utils/dummyData";
 
 export default {
   name: "Records-Section",
@@ -1232,12 +1232,17 @@ export default {
             "Failed to load student registration. Please try again.";
         }
       } else if (error.request && !error.response) {
-        // Network error - backend unavailable, use dummy data
+        // Network error - backend unavailable, use dummy data from online URL
         console.log("Using dummy data for students (backend unavailable)");
-        if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData) {
-          this.$refs.tabulatorTable.setData(dummyData.students);
+        try {
+          const dummyData = await fetchDummyData();
+          if (this.$refs.tabulatorTable && this.$refs.tabulatorTable.setData && dummyData?.students) {
+            this.$refs.tabulatorTable.setData(dummyData.students);
+          }
+          this.error = null;
+        } catch (dummyError) {
+          console.error("Failed to load dummy data:", dummyError);
         }
-        this.error = null;
       } else {
         this.error = "An unexpected error occurred. Please try again.";
       }
@@ -2145,10 +2150,17 @@ export default {
               "Failed to load student registration. Please try again.";
           }
         } else if (error.request && !error.response) {
-          // Network error - backend unavailable, use dummy data
+          // Network error - backend unavailable, use dummy data from online URL
           console.log("Using dummy data for students (backend unavailable)");
-          this.students = dummyData.students;
-          this.error = null;
+          try {
+            const dummyData = await fetchDummyData();
+            if (dummyData?.students) {
+              this.students = dummyData.students;
+              this.error = null;
+            }
+          } catch (dummyError) {
+            console.error("Failed to load dummy data:", dummyError);
+          }
         } else {
           this.error = "An unexpected error occurred. Please try again.";
         }
