@@ -646,6 +646,9 @@
 import api from "@/config/api";
 import dummyData from "@/data/dummyData.js";
 
+// Verify dummy data is loaded
+console.log("Dummy data imported:", dummyData ? "Yes" : "No", dummyData);
+
 const dashboardStyles = /*css*/ `
   :root {
     --dashboard-bg: rgba(255, 255, 255, 0.98);
@@ -1539,9 +1542,33 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching statistics:", error);
-        if (error.response) {
-          console.error("Error response:", error.response.data);
+        const isNetworkError =
+          (error.request && !error.response) ||
+          error.code === "ECONNREFUSED" ||
+          error.code === "ENOTFOUND" ||
+          error.code === "ETIMEDOUT" ||
+          error.message?.includes("Network Error") ||
+          error.message?.includes("timeout") ||
+          (!error.response && error.request);
+
+        if (isNetworkError) {
+          // Network error - backend unavailable, use dummy data
+          console.log("Using dummy data for statistics (backend unavailable)");
+          if (dummyData && dummyData.statistics) {
+            this.statistics = dummyData.statistics;
+          } else {
+            console.error("Dummy data not available!");
+            this.statistics = {
+              registerRecords: 0,
+              students: 0,
+              colleges: 0,
+              programs: 0,
+              results: 0,
+            };
+          }
+        } else if (error.response) {
           // Backend responded with error - keep original error handling
+          console.error("Error response:", error.response.data);
           this.statistics = {
             registerRecords: 0,
             students: 0,
@@ -1549,10 +1576,12 @@ export default {
             programs: 0,
             results: 0,
           };
-        } else if (error.request) {
-          // Network error - backend unavailable, use dummy data
-          console.log("Using dummy data for statistics (backend unavailable)");
-          this.statistics = dummyData.statistics;
+        } else {
+          // Other error - try using dummy data as fallback
+          console.log("Unknown error, using dummy data as fallback");
+          if (dummyData && dummyData.statistics) {
+            this.statistics = dummyData.statistics;
+          }
         }
       } finally {
         this.loading = false;
@@ -1566,7 +1595,36 @@ export default {
         this.healthData = response.data;
       } catch (error) {
         console.error("Error fetching health status:", error);
-        if (error.response) {
+        const isNetworkError =
+          (error.request && !error.response) ||
+          error.code === "ECONNREFUSED" ||
+          error.code === "ENOTFOUND" ||
+          error.code === "ETIMEDOUT" ||
+          error.message?.includes("Network Error") ||
+          error.message?.includes("timeout") ||
+          (!error.response && error.request);
+
+        if (isNetworkError) {
+          // Network error - backend unavailable, use dummy data
+          console.log(
+            "Using dummy data for health status (backend unavailable)"
+          );
+          if (dummyData && dummyData.health) {
+            this.healthData = dummyData.health;
+            this.healthError = null;
+          } else {
+            console.error("Dummy data not available!");
+            this.healthError = "Failed to fetch health status";
+            this.healthData = {
+              status: "error",
+              message: "Health check failed",
+              database: {
+                status: "unknown",
+                connected: false,
+              },
+            };
+          }
+        } else if (error.response) {
           // Backend responded with error - keep original error handling
           this.healthError =
             error.response?.data?.error ||
@@ -1580,13 +1638,13 @@ export default {
               connected: false,
             },
           };
-        } else if (error.request) {
-          // Network error - backend unavailable, use dummy data
-          console.log(
-            "Using dummy data for health status (backend unavailable)"
-          );
-          this.healthData = dummyData.health;
-          this.healthError = null;
+        } else {
+          // Other error - try using dummy data as fallback
+          console.log("Unknown error, using dummy data as fallback");
+          if (dummyData && dummyData.health) {
+            this.healthData = dummyData.health;
+            this.healthError = null;
+          }
         }
       } finally {
         this.healthLoading = false;
@@ -1601,14 +1659,34 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching system resources:", error);
-        if (error.request && !error.response) {
+        const isNetworkError =
+          (error.request && !error.response) ||
+          error.code === "ECONNREFUSED" ||
+          error.code === "ENOTFOUND" ||
+          error.code === "ETIMEDOUT" ||
+          error.message?.includes("Network Error") ||
+          error.message?.includes("timeout") ||
+          (!error.response && error.request);
+
+        if (isNetworkError) {
           // Network error - backend unavailable, use dummy data
           console.log(
             "Using dummy data for system resources (backend unavailable)"
           );
-          this.systemResources = dummyData.systemResources;
+          if (dummyData && dummyData.systemResources) {
+            this.systemResources = dummyData.systemResources;
+          } else {
+            console.error("Dummy data not available!");
+          }
+        } else if (error.response) {
+          // Backend responded with error - keep original error handling (do nothing)
+        } else {
+          // Other error - try using dummy data as fallback
+          console.log("Unknown error, using dummy data as fallback");
+          if (dummyData && dummyData.systemResources) {
+            this.systemResources = dummyData.systemResources;
+          }
         }
-        // If error.response exists, backend responded - keep original error handling
       } finally {
         this.resourcesLoading = false;
       }
